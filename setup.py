@@ -22,14 +22,14 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: System',
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
     ],
 
     keywords='codecave hacking injection',
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
-    install_requires=['docopt==0.6.2', 'kaitaistruct==0.7'],
+    install_requires=['docopt==0.6.2', 'kaitaistruct==0.8'],
 
     extras_require={},
 

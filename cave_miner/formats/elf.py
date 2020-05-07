@@ -397,9 +397,9 @@ class Elf(KaitaiStruct):
                 _pos = io.pos()
                 io.seek(self.name_offset)
                 if self._is_le:
-                    self._m_name = (io.read_bytes_term(0, False, True, True)).decode(u"ASCII")
+                    self._m_name = (io.read_bytes_term(0, False, True, True)).decode("ASCII")
                 else:
-                    self._m_name = (io.read_bytes_term(0, False, True, True)).decode(u"ASCII")
+                    self._m_name = (io.read_bytes_term(0, False, True, True)).decode("ASCII")
                 io.seek(_pos)
                 return self._m_name if hasattr(self, '_m_name') else None
 
@@ -421,13 +421,13 @@ class Elf(KaitaiStruct):
             def _read_le(self):
                 self.entries = []
                 while not self._io.is_eof():
-                    self.entries.append((self._io.read_bytes_term(0, False, True, True)).decode(u"ASCII"))
+                    self.entries.append((self._io.read_bytes_term(0, False, True, True)).decode("ASCII"))
 
 
             def _read_be(self):
                 self.entries = []
                 while not self._io.is_eof():
-                    self.entries.append((self._io.read_bytes_term(0, False, True, True)).decode(u"ASCII"))
+                    self.entries.append((self._io.read_bytes_term(0, False, True, True)).decode("ASCII"))
 
 
 

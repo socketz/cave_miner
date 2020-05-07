@@ -153,7 +153,7 @@ class MachO(KaitaiStruct):
             self._parent = _parent
             self._root = _root if _root else self
             self.path_offset = self._io.read_u4le()
-            self.path = (self._io.read_bytes_term(0, False, True, True)).decode(u"utf-8")
+            self.path = (self._io.read_bytes_term(0, False, True, True)).decode("utf-8")
 
 
     class Uleb128(KaitaiStruct):
@@ -294,7 +294,7 @@ class MachO(KaitaiStruct):
 
                 _pos = self._io.pos()
                 self._io.seek((self.ident_offset - 8))
-                self._m_ident = (self._io.read_bytes_term(0, False, True, True)).decode(u"utf-8")
+                self._m_ident = (self._io.read_bytes_term(0, False, True, True)).decode("utf-8")
                 self._io.seek(_pos)
                 return self._m_ident if hasattr(self, '_m_ident') else None
 
@@ -305,7 +305,7 @@ class MachO(KaitaiStruct):
 
                 _pos = self._io.pos()
                 self._io.seek((self.team_id_offset - 8))
-                self._m_team_id = (self._io.read_bytes_term(0, False, True, True)).decode(u"utf-8")
+                self._m_team_id = (self._io.read_bytes_term(0, False, True, True)).decode("utf-8")
                 self._io.seek(_pos)
                 return self._m_team_id if hasattr(self, '_m_team_id') else None
 
@@ -494,7 +494,7 @@ class MachO(KaitaiStruct):
                     if hasattr(self, '_m_value'):
                         return self._m_value if hasattr(self, '_m_value') else None
 
-                    self._m_value = u"anchor apple generic"
+                    self._m_value = "anchor apple generic"
                     return self._m_value if hasattr(self, '_m_value') else None
 
 
@@ -616,7 +616,7 @@ class MachO(KaitaiStruct):
             self._io = _io
             self._parent = _parent
             self._root = _root if _root else self
-            self.segname = (KaitaiStream.bytes_strip_right(self._io.read_bytes(16), 0)).decode(u"ascii")
+            self.segname = (KaitaiStream.bytes_strip_right(self._io.read_bytes(16), 0)).decode("ascii")
             self.vmaddr = self._io.read_u8le()
             self.vmsize = self._io.read_u8le()
             self.fileoff = self._io.read_u8le()
@@ -635,8 +635,8 @@ class MachO(KaitaiStruct):
                 self._io = _io
                 self._parent = _parent
                 self._root = _root if _root else self
-                self.sect_name = (KaitaiStream.bytes_strip_right(self._io.read_bytes(16), 0)).decode(u"ascii")
-                self.seg_name = (KaitaiStream.bytes_strip_right(self._io.read_bytes(16), 0)).decode(u"ascii")
+                self.sect_name = (KaitaiStream.bytes_strip_right(self._io.read_bytes(16), 0)).decode("ascii")
+                self.seg_name = (KaitaiStream.bytes_strip_right(self._io.read_bytes(16), 0)).decode("ascii")
                 self.addr = self._io.read_u8le()
                 self.size = self._io.read_u8le()
                 self.offset = self._io.read_u4le()
@@ -757,7 +757,7 @@ class MachO(KaitaiStruct):
                     self._root = _root if _root else self
                     self.strings = []
                     while not self._io.is_eof():
-                        self.strings.append((self._io.read_bytes_term(0, False, True, True)).decode(u"ascii"))
+                        self.strings.append((self._io.read_bytes_term(0, False, True, True)).decode("ascii"))
 
 
 
@@ -770,71 +770,71 @@ class MachO(KaitaiStruct):
                 _pos = io.pos()
                 io.seek(self.offset)
                 _on = self.sect_name
-                if _on == u"__objc_nlclslist":
+                if _on == "__objc_nlclslist":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_methname":
+                elif _on == "__objc_methname":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.StringList(io, self, self._root)
-                elif _on == u"__nl_symbol_ptr":
+                elif _on == "__nl_symbol_ptr":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__la_symbol_ptr":
+                elif _on == "__la_symbol_ptr":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_selrefs":
+                elif _on == "__objc_selrefs":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__cstring":
+                elif _on == "__cstring":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.StringList(io, self, self._root)
-                elif _on == u"__objc_classlist":
+                elif _on == "__objc_classlist":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_protolist":
+                elif _on == "__objc_protolist":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_imageinfo":
+                elif _on == "__objc_imageinfo":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_methtype":
+                elif _on == "__objc_methtype":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.StringList(io, self, self._root)
-                elif _on == u"__cfstring":
+                elif _on == "__cfstring":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.CfStringList(io, self, self._root)
-                elif _on == u"__objc_classrefs":
+                elif _on == "__objc_classrefs":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_protorefs":
+                elif _on == "__objc_protorefs":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__objc_classname":
+                elif _on == "__objc_classname":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.StringList(io, self, self._root)
-                elif _on == u"__got":
+                elif _on == "__got":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
-                elif _on == u"__eh_frame":
+                elif _on == "__eh_frame":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.EhFrame(io, self, self._root)
-                elif _on == u"__objc_superrefs":
+                elif _on == "__objc_superrefs":
                     self._raw__m_data = io.read_bytes(self.size)
                     io = KaitaiStream(BytesIO(self._raw__m_data))
                     self._m_data = self._root.SegmentCommand64.Section64.PointerList(io, self, self._root)
@@ -988,7 +988,7 @@ class MachO(KaitaiStruct):
                     self.skip = self._root.Uleb128(self._io, self, self._root)
 
                 if self.opcode == self._root.DyldInfoCommand.BindOpcode.set_symbol_trailing_flags_immediate:
-                    self.symbol = (self._io.read_bytes_term(0, False, True, True)).decode(u"ascii")
+                    self.symbol = (self._io.read_bytes_term(0, False, True, True)).decode("ascii")
 
 
             @property
@@ -1080,7 +1080,7 @@ class MachO(KaitaiStruct):
                     self._io = _io
                     self._parent = _parent
                     self._root = _root if _root else self
-                    self.name = (self._io.read_bytes_term(0, False, True, True)).decode(u"ascii")
+                    self.name = (self._io.read_bytes_term(0, False, True, True)).decode("ascii")
                     self.node_offset = self._root.Uleb128(self._io, self, self._root)
 
                 @property
@@ -1194,7 +1194,7 @@ class MachO(KaitaiStruct):
             self.timestamp = self._io.read_u4le()
             self.current_version = self._io.read_u4le()
             self.compatibility_version = self._io.read_u4le()
-            self.name = (self._io.read_bytes_term(0, False, True, True)).decode(u"utf-8")
+            self.name = (self._io.read_bytes_term(0, False, True, True)).decode("utf-8")
 
 
     class LcStr(KaitaiStruct):
@@ -1203,7 +1203,7 @@ class MachO(KaitaiStruct):
             self._parent = _parent
             self._root = _root if _root else self
             self.length = self._io.read_u4le()
-            self.value = (self._io.read_bytes_term(0, False, True, True)).decode(u"UTF-8")
+            self.value = (self._io.read_bytes_term(0, False, True, True)).decode("UTF-8")
 
 
     class LoadCommand(KaitaiStruct):
@@ -1300,9 +1300,9 @@ class MachO(KaitaiStruct):
                 self.unknown = self._io.read_u4le()
                 self.items = []
                 while True:
-                    _ = (self._io.read_bytes_term(0, False, True, True)).decode(u"ascii")
+                    _ = (self._io.read_bytes_term(0, False, True, True)).decode("ascii")
                     self.items.append(_)
-                    if _ == u"":
+                    if _ == "":
                         break
 
 

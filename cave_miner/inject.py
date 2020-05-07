@@ -1,8 +1,8 @@
-from utils import *
+from .utils import *
 
 def inject(payload_name, file_name, straddr):
-  print(color("{yellow}[*]{bold} Starting injection into binary...{endc}"))
-  print
+  print((color("{yellow}[*]{bold} Starting injection into binary...{endc}")))
+  print()
   addr = parse_int(straddr)
 
   payload = open(payload_name, "rb").read()
@@ -14,4 +14,4 @@ def inject(payload_name, file_name, straddr):
   f.write(res)
   f.close()
 
-  print(color("{yellow}[*]{bold} Injection finished.{endc}"))
+  print((color("{yellow}[*]{bold} Injection finished.{endc}")))

@@ -1,6 +1,6 @@
-PIP=pip2.7
-PYTHON=python
-TWINE=twine
+PIP=/usr/local/bin/pip3
+PYTHON=/usr/bin/python3
+TWINE=/usr/local/bin/twine
 
 .PHONY: install publish
 
@@ -10,4 +10,4 @@ publish:
 	$(PIP) install twine wheel
 	$(PYTHON) setup.py sdist bdist_wheel
 	$(TWINE) upload dist/*
-	rm -fr build dist .egg requests.egg-info
+	rm -fr build dist .egg cave_miner.egg-info

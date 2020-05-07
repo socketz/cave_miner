@@ -28,7 +28,7 @@ def print_banner():
   banner = banner.replace('=', '{grey}={endc}')
   banner = banner.replace('||', '{green}||{endc}')
 
-  print(color(banner))
+  print((color(banner)))
 
 def main():
   print_banner()

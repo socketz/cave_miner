@@ -146,7 +146,7 @@ class MicrosoftPe(KaitaiStruct):
             self._io = _io
             self._parent = _parent
             self._root = _root if _root else self
-            self.name = (KaitaiStream.bytes_strip_right(self._io.read_bytes(8), 0)).decode(u"UTF-8")
+            self.name = (KaitaiStream.bytes_strip_right(self._io.read_bytes(8), 0)).decode("UTF-8")
             self.virtual_size = self._io.read_u4le()
             self.virtual_address = self._io.read_u4le()
             self.size_of_raw_data = self._io.read_u4le()

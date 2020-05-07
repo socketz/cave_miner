@@ -1,12 +1,12 @@
-from utils import *
-from formats import * 
+from .utils import *
+from .formats import * 
 from struct import *
 
 def search_cave(name, body, cave_size, file_offset, vaddr, infos, _bytes):
   null_count = 0
   size = len(body)
 
-  for offset in xrange(size):
+  for offset in range(size):
     byte = body[offset]
     check=False
 
@@ -21,14 +21,14 @@ def search_cave(name, body, cave_size, file_offset, vaddr, infos, _bytes):
 
     if check:
       if null_count >= cave_size:
-        print(color("{yellow}[*]{bold} New cave detected !{endc}"))
-        print "  section_name: {}".format(name)
-        print "  cave_begin:   0x{:08x}".format(file_offset + offset - null_count)
-        print "  cave_end:     0x{:08x}".format(file_offset + offset)
-        print "  cave_size:    0x{:08x} ({} bytes)".format(null_count,null_count)
-        print "  vaddress:     0x{:08x}".format(vaddr + offset - null_count)
-        print "  infos:        {}".format(infos)
-        print
+        print((color("{yellow}[*]{bold} New cave detected !{endc}")))
+        print("  section_name: {}".format(name))
+        print("  cave_begin:   0x{:08x}".format(file_offset + offset - null_count))
+        print("  cave_end:     0x{:08x}".format(file_offset + offset))
+        print("  cave_size:    0x{:08x} ({} bytes)".format(null_count,null_count))
+        print("  vaddress:     0x{:08x}".format(vaddr + offset - null_count))
+        print("  infos:        {}".format(infos))
+        print()
       null_count = 0
 
 
@@ -129,12 +129,12 @@ def detect_type(filename, cavesize, _bytes):
   elif data[0x0:0x4] == macho: search_macho(filename, cavesize, _bytes)
 
 def search(filename, cavesize, bytes_arg):
-  print(color("{yellow}[*]{bold} Starting cave mining process...{endc}"))
-  print(color("   {{bold}} Searching for bytes: {}...{{endc}}".format(", ".join(bytes_arg))))
-  print
+  print((color("{yellow}[*]{bold} Starting cave mining process...{endc}")))
+  print((color("   {{bold}} Searching for bytes: {}...{{endc}}".format(", ".join(bytes_arg)))))
+  print()
 
-  _bytes = map(lambda e: chr(int(e, 16)), bytes_arg)
+  _bytes = [chr(int(e, 16)) for e in bytes_arg]
 
   detect_type(filename, parse_int(cavesize), _bytes)
 
-  print(color("{yellow}[*]{bold} Mining finished.{endc}"))
+  print((color("{yellow}[*]{bold} Mining finished.{endc}")))
